@@ -24,7 +24,7 @@ export default function HomeScreen() {
         <ThemedText type="subtitle">Pomodoro</ThemedText>
       </ThemedView>
       <View style={styles.buttonContainer}>
-      <Button title="Start" onPress={()=>console.log("Start Pomodoro")} > </Button>
+      <Button title="Start" onPress={()=>console.log("Start Pomodoro")} ></Button>
       <Button title="Pause" onPress={()=> alert("Pause Pomodoro")} ></Button>
       <Button title="Restart" onPress={()=> alert("Restart Pomodoro")} ></Button>
       </View>
@@ -50,6 +50,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
   buttonContainer:{
-    flex:1,
+    
   },
 });
