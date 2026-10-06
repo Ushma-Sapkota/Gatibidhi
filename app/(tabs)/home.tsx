@@ -1,24 +1,45 @@
 import { Image } from 'expo-image';
 import { Button, StyleSheet, View } from 'react-native';
-
 import { HelloWave } from '@/components/hello-wave';
 import ParallaxScrollView from '@/components/parallax-scroll-view';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
+import usePomodoro from '@/hooks/usePomodoro';
+import { ThemeProvider } from 'expo-router';
+import { formatMMSS } from '@/utils/format';
+import {useMemo, useState } from "react";
+import { LinearGradient } from 'expo-linear-gradient';
 
-export default function HomeScreen() {
+export default function Root() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
+    <ThemeProvider>
+      <AppInner />
+    </ThemeProvider>
+  )
+}
+
+  function AppInner(){
+    const {theme, toggle} = useTheme();
+    const [durationSec, setDurationSec] =useState(25*60)
+    const {secondsLeft, running, progress, start, pause, reset } = usePomodoro{(
+      durationSec,
+      onFinish: ()=>{}
+    )}
+
+    const time =useMemo(() => formatMMSS(secondsLeft),[secondsLeft])
+
+    return (
+      <ParallaxScrollView>
+      <LinearGradient
+      colors={ThemeProvider.bgGradient}
+      start={{ x:0.2, y:0.1 }}
+      style={[]}>
+      
+      </LinearGradient>
+    
       <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
+      <ThemedText type="title">Welcome!</ThemedText>
+      <HelloWave />
       </ThemedView>
       <ThemedView style={styles.stepContainer}>
         <ThemedText type="subtitle">Pomodoro</ThemedText>
@@ -29,8 +50,8 @@ export default function HomeScreen() {
       <Button title="Restart" onPress={()=> alert("Restart Pomodoro")} ></Button>
       </View>
       </ParallaxScrollView>
-  );
-}
+    );
+  }
 
 const styles = StyleSheet.create({
   titleContainer: {
