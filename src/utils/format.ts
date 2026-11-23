@@ -7,4 +7,4 @@ export const formatMMSS = (seconds: number)=>{
 
 // Keep the number within limits
 export const clamp = (v:number, min: number, max:number) =>
-    Math.min(Math.max(v, min),max);
+    Math.min(Math.max(v, min),max); 
